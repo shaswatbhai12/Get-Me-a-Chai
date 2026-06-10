@@ -15,21 +15,23 @@ export default function Home() {
     </div>
     <div className="bg-white h-1 opacity-10">
     </div>
-    <div className="text-white container mx-auto">
-      <h1 className="text-2xl font-bold text-center my-14">Your Fans can buy you a Chai</h1>
+    <div className="text-white container mx-auto pb-32 pt-14">
+      <h2 className="text-3xl font-bold text-center mb-14">Your Fans can buy you a Chai</h2>
       <div className="flex gap-5 justify-around">
-        <div className="item space-y-3">
+        <div className="item space-y-3 flex flex-col items-center justify-center">
           <img className="bg-slate-400 rounded-full p-2 text-black" width={88} src="/man.gif" alt="" />
           <p className="font-bold">Fund Yourself</p>
+          <p className="text-center">Your fans are available to support you</p>
         </div>
-        <div className="item space-y-3">
+        <div className="item space-y-3 flex flex-col items-center justify-center">
           <img className="bg-slate-400 rounded-full p-2 text-black" width={88} src="/coin.gif" alt=""/>
-          <p className="font-bold">Fund Yourself</p>
+          <p className="font-bold">Fans want to contribute</p>
+          <p className="text-center">Your fans are willing to contribute financially</p>
         </div>
-        <div className="item space-y-3">
+        <div className="item space-y-3 flex flex-col items-center justify-center">
           <img className="bg-slate-400 rounded-full p-2 text-black" width={88} src="/group.gif" alt=""/>
-          <p className="font-bold">Fans want to help</p>
-          <p>Your Fans are available to help you</p>
+          <p className="font-bold">Fans want to collaborate</p>
+          <p className="text-center">Your Fans are ready to collaborate with you</p>
         </div>
       </div>
     </div>
