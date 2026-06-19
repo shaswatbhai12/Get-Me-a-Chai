@@ -29,20 +29,31 @@ const Username = async ({ params }) => {
           9719 Members . 82 Posts . $15,450 / Release
         </div>
 
-        <div className="payment flex gap-3 w-[80%] mt-11">
+        <div className="payment flex gap-3 w-[95%] mt-11">
           <div className="supporters w-1/2 bg-slate-900 rounded-lg text-white p-10">
             <h2 className="text-2xl font-bold my-5">Supporters</h2>
-            <ul className="mx-5">
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
-              <li className="my-2">Subham Donated $30 with a message "" </li>
+            <ul className="mx-5 text-lg">
+              <li className="my-2 flex gap-2 items-center">
+                <img width={33} src="avatar.gif" alt="" />
+                <span>
+                  Subham Donated <span className="font-bold">$30</span> with a
+                  message "I support you Bro. Lot of ❤️"
+                </span>
+              </li>
+              <li className="my-2 flex gap-2 items-center">
+                <img width={33} src="avatar.gif" alt="" />
+                <span>
+                  Subham Donated <span className="font-bold">$30</span> with a
+                  message "I support you Bro. Lot of ❤️"
+                </span>
+              </li>
+              <li className="my-2 flex gap-2 items-center">
+                <img width={33} src="avatar.gif" alt="" />
+                <span>
+                  Subham Donated <span className="font-bold">$30</span> with a
+                  message "I support you Bro. Lot of ❤️"
+                </span>
+              </li>
             </ul>
           </div>
           <div className="makePayment w-1/2 bg-slate-900 rounded-lg text-white p-10">
@@ -64,12 +75,11 @@ const Username = async ({ params }) => {
                 className="w-full p-3 rounded-lg bg-slate-800"
                 placeholder="Enter Amount"
               />
-              <div className="text-center">
-
-              <button className=" text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-                Pay
-              </button>
-              </div>
+              {/* <div className="text-center"> */}
+                <button className=" text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                  Pay
+                </button>
+              {/* </div> */}
             </div>
             <div className="flex gap-5 mt-5">
               <button className="bg-slate-800 p-3 rounded-lg">Pay $10</button>
