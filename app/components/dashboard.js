@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const { data: session } = useSession();
+  console.log(session)
   const router = useRouter();
   const [form, setform] = useState({});
 

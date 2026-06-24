@@ -35,7 +35,7 @@ const Navbar = () => {
               onClick={()=> setShowdropdown(!showdropdown)}
               onBlur={()=> { setTimeout(() => {
                    setShowdropdown(false)
-            }, 100);}}
+            }, 300);}}
               id="dropdownDefaultButton"
               data-dropdown-toggle="dropdown"
               className="text-white mx-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 hover:dark:bg-blue-700 focus:dark:bg-blue-700"
@@ -77,7 +77,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href={`/${session.user.name}`}
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Your Page

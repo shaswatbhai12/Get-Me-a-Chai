@@ -4,6 +4,10 @@ import NextAuth from "next-auth";
 // import Facebook from "next-auth/providers/facebook";
 // import Email from "next-auth/providers/email";
 import Github from "next-auth/providers/github";
+import mongoose from "mongoose";
+import User from "@/models/User";
+import Payment from "@/models/Payment";
+import connectDB from "@/db/connectDb";
 
 export const authoptions = NextAuth({
     providers: [ 
@@ -31,9 +35,29 @@ export const authoptions = NextAuth({
     callbacks: {
         async signIn({user, account, profile, email, credentials }){
             if(account.provider == "github"){
-                const client = await mongoose.connect()
-                // const currentUser = await client.db("users").collection("users").findOne({email: email})
+                if(mongoose.connection.readyState !==1){
+                     await mongoose.connect("mongodb://localhost:27017/chai")
             }
+                const targetEmail = user.email || profile.email || `${user.name || profile.login || "user"}@github.private`;
+                const targetUsername = user.name || profile.login || "github_user";
+                const currentUser = await User.findOne({email: targetEmail})
+                if(!currentUser){
+                    const newUser = new User({
+                        email: targetEmail,
+                        username: targetEmail.includes("@") ? targetEmail.split("@")[0] : targetUsername
+                    })
+                    await newUser.save()
+                    user.name = newUser.username
+                }
+                
+                return true
+            }
+        },
+        async session({ session, user, token}){
+            const dbUser = await User.findOne({email: session.user.email})
+            console.log(dbUser)
+            session.user.name = dbUser.username
+            return session
         }
     }
 })
