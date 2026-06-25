@@ -2,12 +2,12 @@
 
 import Razorpay from "razorpay"
 import Payment from "@/models/Payment"
-import connectDb from "@db/connectDb"
+import connectDb from "@/db/connectDb"
 import User from "@/models/User"
 
-export const initiate = async(amount, to_username, payment_form) => {
+export const initiate = async(amount, to_username, paymentform) => {
     await connectDb()
-    var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET })
+    var instance = new Razorpay({ key_id: process.env.NEXT_PUBLIC_KEY_ID, key_secret: process.env.NEXT_PUBLIC_KEY_SECRET })
 
     // instance.order.create({
     //     amount: 50000,
@@ -24,9 +24,9 @@ export const initiate = async(amount, to_username, payment_form) => {
         currency: "INR"
     }
 
-    let x = await instance.order.create(options)
+    let x = await instance.orders.create(options)
 
-    await Payment.create({oid: x.id, amount: amount, to_username: to_username, name: paymentform.name, message: paymentform.message})
+    await Payment.create({oid: x.id, amount: amount, to_user: to_username, name: paymentform.name, message: paymentform.message})
 
     return x
 }

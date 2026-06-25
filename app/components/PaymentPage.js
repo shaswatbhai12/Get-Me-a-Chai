@@ -1,19 +1,21 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import Script from "next/script";
-import { initiate } from "@/actions/useractions"
+import { initiate } from "@/actions/useractions";
+import {useSession} from 'next-auth/react';
 
 const PaymentPage = ({ username }) => {
-const [paymentform, setPaymentform] = useState({second})
+  // const {data: session } = useSession()
+  const [paymentform, setPaymentform] = useState({  });
 
-const handleChange = (e) => {
-  setPaymentform({ ...paymentform, [e.target.name]: e.target.value })
-}
+  const handleChange = (e) => {
+    setPaymentform({ ...paymentform, [e.target.name]: e.target.value });
+  };
   const pay = async (amount) => {
-    let a = await initiate(amount, session?.user.name, paymentform)
-    let orderId = a.id
+    let a = await initiate(amount, username, paymentform);
+    let orderId = a.id;
     var options = {
-      key: process.env.KEY_ID, // Enter the Key ID generated from the Dashboard
+      key: process.env.NEXT_PUBLIC_KEY_ID, // Enter the Key ID generated from the Dashboard
       amount: amount, // Amount is in currency subunits.
       currency: "INR",
       name: "Get me a Chai", //your business name
@@ -36,8 +38,7 @@ const handleChange = (e) => {
     };
     var rzp1 = new Razorpay(options);
     rzp1.open();
-}
-  
+  };
 
   return (
     <>
@@ -102,12 +103,14 @@ const handleChange = (e) => {
                 value={paymentform.name}
                 type="text"
                 className="w-full p-3 rounded-lg bg-slate-800"
+                name="name"
                 placeholder="Enter Name"
               />
               <input
-                onChange={handleChange}   
+                onChange={handleChange}
                 value={paymentform.message}
                 type="text"
+                name="message"
                 className="w-full p-3 rounded-lg bg-slate-800"
                 placeholder="Enter Message"
               />
@@ -116,6 +119,7 @@ const handleChange = (e) => {
                 onChange={handleChange}
                 value={paymentform.amount}
                 type="text"
+                name="amount"
                 className="w-full p-3 rounded-lg bg-slate-800"
                 placeholder="Enter Amount"
               />
@@ -126,9 +130,24 @@ const handleChange = (e) => {
               {/* </div> */}
             </div>
             <div className="flex gap-5 mt-5">
-              <button className="bg-slate-800 p-3 rounded-lg" onClick={()=>pay(10)}>Pay ₹10</button>
-              <button className="bg-slate-800 p-3 rounded-lg" onClick={()=>pay(20)}>Pay ₹20</button>
-              <button className="bg-slate-800 p-3 rounded-lg" onClick={()=>pay(30)}>Pay ₹30</button>
+              <button
+                className="bg-slate-800 p-3 rounded-lg"
+                onClick={() => pay(1000)}
+              >
+                Pay ₹10
+              </button>
+              <button
+                className="bg-slate-800 p-3 rounded-lg"
+                onClick={() => pay(2000)}
+              >
+                Pay ₹20
+              </button>
+              <button
+                className="bg-slate-800 p-3 rounded-lg"
+                onClick={() => pay(3000)}
+              >
+                Pay ₹30
+              </button>
             </div>
           </div>
         </div>
@@ -136,7 +155,5 @@ const handleChange = (e) => {
     </>
   );
 };
-
-
 
 export default PaymentPage;
