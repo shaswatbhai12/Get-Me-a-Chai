@@ -3,16 +3,39 @@ import React, {useEffect, useState} from "react";
 import Script from "next/script";
 import {useSession} from 'next-auth/react';
 import { fetchuser, fetchpayments, initiate } from "@/actions/useractions";
+import { useSearchParams } from "next/navigation"
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import { Bounce } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const PaymentPage = ({ username }) => {
   // const {data: session } = useSession()
-  const [paymentform, setPaymentform] = useState({  });
+  const [paymentform, setPaymentform] = useState({ name:"", message:"", amount:"" });
   const [currentuser, setcurrentuser] = useState({  });
   const [payments, setPayments] = useState([  ])
+  const searchParams = useSearchParams()
+  const router = use
 
   useEffect(()=>{
     getData()
   }, [])
+
+  useEffect(()=>{
+    if(searchParams.get("paymentdone") == "true" ){
+      toast('Thanks for your donation!',{
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce
+      })
+    }
+  },[])
 
   const handleChange = (e) => {
     setPaymentform({ ...paymentform, [e.target.name]: e.target.value });
@@ -55,21 +78,33 @@ const PaymentPage = ({ username }) => {
 
   return (
     <>
+    <ToastContainer
+      position="top-right"
+      autoClose="5000"
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeonClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggeble
+      pauseOnHover
+      theme="light"
+      />
       <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
       <div className="cover w-full bg-red-50 relative">
         <img
           className="object-cover w-full h-[350]"
-          src="https://c10.patreonusercontent.com/4/patreon-media/p/campaign/4842667/452146dcfeb04f38853368f554aadde1/eyJ3IjoxNjAwLCJ3ZSI6MX0%3D/20.gif?token-hash=AK5ABuUj1faTfJ81f6g-kTWcxuDkPwfGfoWBnAegBss%3D&token-time=1783123200"
+          src={currentuser.coverpic}
           alt=""
         />
 
-        <div className="absolute -bottom-20 right-[46%] border-2 border-white rounded-full">
+        <div className="absolute -bottom-20 right-[46%] border-2 border-white overflow-hidden rounded-full size-32">
           <img
-            className="rounded-full"
-            width={150}
-            height={150}
-            src="https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg"
+            className="rounded-full object-cover size-32"
+            width={128}
+            height={128}
+            src={currentuser.profilepic}
             alt=""
           />
         </div>
@@ -85,6 +120,7 @@ const PaymentPage = ({ username }) => {
           <div className="supporters w-1/2 bg-slate-900 rounded-lg text-white p-10">
             <h2 className="text-2xl font-bold my-5">Supporters</h2>
             <ul className="mx-5 text-lg">
+              {payments.length == 0 && <li>No payments yet</li>}
               {payments.map((p, i)=>{
                 return <li key={i} className="my-2 flex gap-2 items-center">
                         <img width={33} src="avatar.gif" alt="" />
@@ -124,7 +160,7 @@ const PaymentPage = ({ username }) => {
                 placeholder="Enter Amount"
               />
               {/* <div className="text-center"> */}
-              <button onClick={() => pay(Number.parseInt(paymentform.amount)*100)} className=" text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+              <button onClick={() => pay(Number.parseInt(paymentform.amount)*100)} className=" text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-600 disabled:from-purple-100" disabled={paymentform.name.length?.length<3 || paymentform.message?.length<4}>
                 Pay
               </button>
               {/* </div> */}

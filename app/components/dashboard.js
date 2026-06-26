@@ -2,22 +2,33 @@
 import React, { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { fetchuser, updateProfile } from "@/actions/useractions";
 
 const Dashboard = () => {
-  const { data: session } = useSession();
-  console.log(session)
+  const { data: session, update } = useSession();
   const router = useRouter();
   const [form, setform] = useState({});
 
   useEffect(() => {
+    getData()
     if (!session) {
       router.push("/login");
     }
   }, [router, session]);
 
+  const getData = async () => {
+    let t = await fetchuser(session.user.name)
+    setform(t)
+  }
+
   const handleChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async(e) => {
+    let b = await updateProfile(e, session.user.name)
+    alert("Profile Updated")
+  }
 
   return (
     <div className="container mx-auto py-5 px-6">
@@ -26,7 +37,7 @@ const Dashboard = () => {
         Welcome to your Dashboard
       </h1>
 
-      <form action="" className="max-w-2xl mx-auto">
+      <form className="max-w-2xl mx-auto" action={handleSubmit}>
         <div className="my-2">
           <label
             htmlFor="name"
@@ -77,33 +88,33 @@ const Dashboard = () => {
         </div>
         <div className="my-2">
           <label
-            htmlFor="profile"
+            htmlFor="profilepic"
             className=" block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Profile Picture
           </label>
           <input
-            value={form.profile ? form.profile : ""}
+            value={form.profilepic ? form.profilepic : ""}
             onChange={handleChange}
             type="text"
-            name="profile"
-            id="profile"
+            name="profilepic"
+            id="profilepic"
             className="block w-full p-2 tex-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
         <div className="my-2">
           <label
-            htmlFor="cover"
+            htmlFor="coverpic"
             className=" block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Cover Picture
           </label>
           <input
-            value={form.cover ? form.cover : ""}
+            value={form.coverpic ? form.coverpic : ""}
             onChange={handleChange}
             type="text"
-            name="cover"
-            id="cover"
+            name="coverpic"
+            id="coverpic"
             className="block w-full p-2 tex-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
         </div>
