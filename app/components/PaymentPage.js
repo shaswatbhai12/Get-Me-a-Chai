@@ -62,9 +62,9 @@ const PaymentPage = ({ username }) => {
       callback_url: `${process.env.NEXT_PUBLIC_URL}/api/razorpay`,
       prefill: {
         //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-        name: "Gaurav Kumar", //your customer's name
+        name: "Gaurav Kumar", 
         email: "gaurav.kumar@example.com",
-        contact: "+919876543210", //Provide the customer's phone number for better conversion rates
+        contact: "+919876543210", 
       },
       notes: {
         address: "Razorpay Corporate Office",
