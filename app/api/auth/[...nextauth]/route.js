@@ -6,10 +6,10 @@ import NextAuth from "next-auth";
 import Github from "next-auth/providers/github";
 import mongoose from "mongoose";
 import User from "@/models/User";
-import Payment from "@/models/Payment";
+// import Payment from "@/models/Payment";
 import connectDB from "@/db/connectDb";
 
-export const authoptions = NextAuth({
+export const authoptions = {
     providers: [ 
         Github({
             clientId: process.env.GITHUB_ID,
@@ -35,9 +35,7 @@ export const authoptions = NextAuth({
     callbacks: {
         async signIn({user, account, profile, email, credentials }){
             if(account.provider == "github"){
-                if(mongoose.connection.readyState !==1){
-                     await mongoose.connect(process.env.MONGODB_KEY_ID)
-            }
+                await connectDB()
                 const targetEmail = user.email || profile.email || `${user.name || profile.login || "user"}@github.private`;
                 const targetUsername = user.name || profile.login || "github_user";
                 const currentUser = await User.findOne({email: targetEmail})
@@ -54,11 +52,14 @@ export const authoptions = NextAuth({
             }
         },
         async session({ session, user, token}){
+            await connectDB()
             const dbUser = await User.findOne({email: session.user.email})
             session.user.name = dbUser.username
             return session
         }
     }
-})
+}
 
-export { authoptions as GET, authoptions as POST}
+const handler = NextAuth(authoptions)
+
+export {handler as GET, handler as POST}
