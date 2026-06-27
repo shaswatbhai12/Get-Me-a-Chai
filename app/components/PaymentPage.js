@@ -15,7 +15,7 @@ const PaymentPage = ({ username }) => {
   const [currentuser, setcurrentuser] = useState({  });
   const [payments, setPayments] = useState([  ])
   const searchParams = useSearchParams()
-  const router = use
+  const router = useRouter()
 
   useEffect(()=>{
     getData()
@@ -35,6 +35,7 @@ const PaymentPage = ({ username }) => {
         transition: Bounce
       })
     }
+    router.push(`/${username}`)
   },[])
 
   const handleChange = (e) => {
@@ -76,6 +77,8 @@ const PaymentPage = ({ username }) => {
     rzp1.open();
   };
 
+
+
   return (
     <>
     <ToastContainer
@@ -99,9 +102,9 @@ const PaymentPage = ({ username }) => {
           alt=""
         />
 
-        <div className="absolute -bottom-20 right-[46%] border-2 border-white overflow-hidden rounded-full size-32">
+        <div className="absolute -bottom-20 right-[46%] border-2 border-white overflow-hidden rounded-full size-36">
           <img
-            className="rounded-full object-cover size-32"
+            className="rounded-full object-cover size-36"
             width={128}
             height={128}
             src={currentuser.profilepic}
@@ -111,14 +114,14 @@ const PaymentPage = ({ username }) => {
       </div>
       <div className="info flex justify-center items-center my-24 mb-32 flex-col gap-2">
         <div className="font-bold text-lg">@{username}</div>
-        <div className="text-slate-400">Creating Animated Art for VTT's</div>
+        <div className="text-slate-400">Lets help {username} get a chai!</div>
         <div className="text-slate-400">
-          9719 Members . 82 Posts . $15,450 / Release
+          {payments.length} Payments .  {currentuser.name}  ₹{payments.reduce ((a, b) => a + b.amount, 0)} raised
         </div>
 
         <div className="payment flex gap-3 w-[95%] mt-11">
           <div className="supporters w-1/2 bg-slate-900 rounded-lg text-white p-10">
-            <h2 className="text-2xl font-bold my-5">Supporters</h2>
+            <h2 className="text-2xl font-bold my-5">Top 10 Supporters</h2>
             <ul className="mx-5 text-lg">
               {payments.length == 0 && <li>No payments yet</li>}
               {payments.map((p, i)=>{
@@ -160,7 +163,7 @@ const PaymentPage = ({ username }) => {
                 placeholder="Enter Amount"
               />
               {/* <div className="text-center"> */}
-              <button onClick={() => pay(Number.parseInt(paymentform.amount)*100)} className=" text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-600 disabled:from-purple-100" disabled={paymentform.name.length?.length<3 || paymentform.message?.length<4}>
+              <button onClick={() => pay(Number.parseInt(paymentform.amount)*100)} className=" text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-600 disabled:from-purple-100" disabled={paymentform.name.length?.length<3 || paymentform.message?.length<4 || paymentform.amount.length<1}>
                 Pay
               </button>
               {/* </div> */}

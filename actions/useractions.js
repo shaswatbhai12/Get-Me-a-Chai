@@ -40,7 +40,7 @@ export const fetchuser = async(username) => {
 
 export const fetchpayments = async (username) => {
     await connectDb()
-    let p = await Payment.find({to_user: username, done:true }).sort({amount: -1}).lean()
+    let p = await Payment.find({to_user: username, done:true }).sort({amount: -1}).limit(10).lean()
     return JSON.parse(JSON.stringify(p))
 }
 
@@ -53,6 +53,11 @@ export const updateProfile = async(data, oldusername) => {
     if(u){
         return{ error: "Username already exists"}
     }
-    }
     await User.updateOne({email: ndata.email }, ndata)
+    await Payment.updateMany({to_user: oldusername}, {to_user: ndata.username})
+    }
+
+    else {
+        await User.updateOne({email: ndata.email }, ndata)
+    }
 } 
