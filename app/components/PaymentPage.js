@@ -97,12 +97,12 @@ const PaymentPage = ({ username }) => {
 
       <div className="cover w-full bg-red-50 relative">
         <img
-          className="object-cover w-full h-[350]"
+          className="object-cover w-full h-48 md:h-[350]"
           src={currentuser.coverpic}
           alt=""
         />
 
-        <div className="absolute -bottom-20 right-[46%] border-2 border-white overflow-hidden rounded-full size-36">
+        <div className="absolute -bottom-20 right-[38%] md:right-[46%] border-2 border-white overflow-hidden rounded-full size-36">
           <img
             className="rounded-full object-cover size-36"
             width={128}
@@ -119,8 +119,8 @@ const PaymentPage = ({ username }) => {
           {payments.length} Payments .  {currentuser.name}  ₹{payments.reduce ((a, b) => a + b.amount, 0)} raised
         </div>
 
-        <div className="payment flex gap-3 w-[95%] mt-11">
-          <div className="supporters w-1/2 bg-slate-900 rounded-lg text-white p-10">
+        <div className="payment flex flex-col md:flex-row gap-3 w-[95%] mt-11">
+          <div className="supporters w-full md:w-1/2 bg-slate-900 rounded-lg text-white p-10">
             <h2 className="text-2xl font-bold my-5">Top 10 Supporters</h2>
             <ul className="mx-5 text-lg">
               {payments.length == 0 && <li>No payments yet</li>}
@@ -134,7 +134,7 @@ const PaymentPage = ({ username }) => {
                 })}
             </ul>
           </div>
-          <div className="makePayment w-1/2 bg-slate-900 rounded-lg text-white p-10">
+          <div className="makePayment w-full md:w-1/2 bg-slate-900 rounded-lg text-white p-10">
             <h2 className="text-2xl font-bold my-5">Make a Payment</h2>
             <div className="flex gap-2 flex-col">
               <input
@@ -168,7 +168,7 @@ const PaymentPage = ({ username }) => {
               </button>
               {/* </div> */}
             </div>
-            <div className="flex gap-5 mt-5">
+            <div className="flex flex-col md:flex-row gap-5 mt-5">
               <button
                 className="bg-slate-800 p-3 rounded-lg"
                 onClick={() => pay(1000)}

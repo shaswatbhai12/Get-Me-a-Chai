@@ -13,11 +13,11 @@ const Navbar = () => {
   //     </>
   // }
   return (
-    <nav className="bg-gray-900 text-white flex justify-between items-center px-4 h-16">
+    <nav className="bg-gray-900 text-white flex justify-between items-center px-4 md:h-16 flex-col md:flex-row">
      
         <Link href={"/"} className="logo font-bold text-lg flex justify-center items-center">
         <img className="invertImg" src="tea.gif" width={44} alt="" />
-        <span>Get Me a Chai</span>
+        <span className="text-xl md:text-base my-3 md:my-0">Get Me a Chai</span>
         </Link>
     
       {/* <ul className="flex justify-between gap-4">
@@ -28,7 +28,7 @@ const Navbar = () => {
                 <li>Login</li>
             </ul> */}
 
-      <div className="relative inline-block">
+      <div className="relative flex flex-col md:block gap-4">
         {session && (
           <>
             <button
