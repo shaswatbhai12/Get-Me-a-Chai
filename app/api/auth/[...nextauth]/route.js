@@ -36,7 +36,7 @@ export const authoptions = NextAuth({
         async signIn({user, account, profile, email, credentials }){
             if(account.provider == "github"){
                 if(mongoose.connection.readyState !==1){
-                     await mongoose.connect("mongodb://localhost:27017/chai")
+                     await mongoose.connect(process.env.MONGODB_KEY_ID)
             }
                 const targetEmail = user.email || profile.email || `${user.name || profile.login || "user"}@github.private`;
                 const targetUsername = user.name || profile.login || "github_user";
