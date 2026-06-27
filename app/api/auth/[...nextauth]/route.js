@@ -33,21 +33,31 @@ export const authoptions = {
         // })
     ],
     callbacks: {
-        async signIn({user, account, profile, email, credentials }){
-            if(account.provider == "github" || account.provider === "google"){
-                await connectDB()
-                const targetEmail = user.email ;
-                if(!currentUser){
-                    const newUser = new User({
-                        email: targetEmail,
-                        username: targetEmail.split("@")[0] 
-                    })
-                    await newUser.save()
-                    user.name = newUser.username
-                }
-                
-                return true
-            }
+        async signIn({ user, account, profile }) {
+    if (account.provider === "github" || account.provider === "google") {
+        await connectDB();
+
+        const targetEmail =
+            user.email ||
+            profile.email ||
+            `${user.name || "user"}@${account.provider}.private`;
+
+        const currentUser = await User.findOne({
+            email: targetEmail,
+        });
+
+        if (!currentUser) {
+            const newUser = new User({
+                email: targetEmail,
+                username: targetEmail.split("@")[0],
+            });
+
+            await newUser.save();
+            user.name = newUser.username;
+        }
+    }
+
+    return true;
         },
         async session({ session, user, token}){
             await connectDB()
