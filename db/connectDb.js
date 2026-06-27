@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(`mongodb+srv://Shaswat:Shas@1925@cluster0.26bvsgk.mongodb.net/?appName=Cluster0`, {
+    const conn = await mongoose.connect(`process.env.MONGODB_KEY_ID`, {
       useNewUrlParser: true,
     });
     console.log(`MongoDB Connected: {conn.connection.host}`);
