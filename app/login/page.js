@@ -22,6 +22,7 @@ const Login = () => {
       <h1 className='text-center font-bold text-3xl'>Login to Get Started</h1>
       <div className="flex flex-col gap-2 min-h-screen items-center p-10">
         <button 
+        onClick={()=>{signIn("google")}}
         className="flex items-center w-64 text-black bg-slate-50 border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
             <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="-0.5 0 48 48" version="1.1">

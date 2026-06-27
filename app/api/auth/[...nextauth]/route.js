@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 // import Apple from "next-auth/providers/apple";
-// import Google from "next-auth/providers/google";
+import Google from "next-auth/providers/google";
 // import Facebook from "next-auth/providers/facebook";
 // import Email from "next-auth/providers/email";
 import Github from "next-auth/providers/github";
@@ -23,10 +23,10 @@ export const authoptions = {
         //     clientId: process.env.FACEBOOK_ID,
         //     clientSecret: process.env.FACEBOOK_SECRET
         // }),
-        // Google({
-        //     clientId: process.env.GOOGLE_ID,
-        //     clientSecret: process.env.GOOGLE_SECRET
-        // }),
+        Google({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET
+        }),
         // Email({
         //     server: process.env.MAIL_SERVER,
         //     from: 'shaswatkumar9868@gmail.com'
@@ -34,15 +34,13 @@ export const authoptions = {
     ],
     callbacks: {
         async signIn({user, account, profile, email, credentials }){
-            if(account.provider == "github"){
+            if(account.provider == "github" || account.provider === "google"){
                 await connectDB()
-                const targetEmail = user.email || profile.email || `${user.name || profile.login || "user"}@github.private`;
-                const targetUsername = user.name || profile.login || "github_user";
-                const currentUser = await User.findOne({email: targetEmail})
+                const targetEmail = user.email ;
                 if(!currentUser){
                     const newUser = new User({
                         email: targetEmail,
-                        username: targetEmail.includes("@") ? targetEmail.split("@")[0] : targetUsername
+                        username: targetEmail.split("@")[0] 
                     })
                     await newUser.save()
                     user.name = newUser.username
