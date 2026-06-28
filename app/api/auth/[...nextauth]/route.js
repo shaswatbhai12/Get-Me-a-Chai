@@ -34,7 +34,7 @@ export const authoptions = {
     ],
     callbacks: {
         async signIn({ user, account, profile }) {
-    if (account.provider === "github" || account.provider === "google" || account.provider === "facebook" || account.provider === "Twitter") {
+    if (account.provider === "github" || account.provider === "google" || account.provider === "facebook" || account.provider === "twitter") {
         await connectDB();
 
         const targetEmail =
