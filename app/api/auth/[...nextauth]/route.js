@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 // import Apple from "next-auth/providers/apple";
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
-// import Email from "next-auth/providers/email";
+import Twitter from "next-auth/providers/twitter";
 import Github from "next-auth/providers/github";
 import mongoose from "mongoose";
 import User from "@/models/User";
@@ -15,10 +15,10 @@ export const authoptions = {
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET
         }),
-        // Apple({
-        //     clientId: process.env.APPLE_ID,
-        //     clientSecret: process.env.APPLE_SECRET
-        // }),
+        Twitter({
+            clientId: process.env.TWITTER_ID,
+            clientSecret: process.env.TWITTER_SECRET
+        }),
         Facebook({
             clientId: process.env.FACEBOOK_ID,
             clientSecret: process.env.FACEBOOK_SECRET
@@ -34,7 +34,7 @@ export const authoptions = {
     ],
     callbacks: {
         async signIn({ user, account, profile }) {
-    if (account.provider === "github" || account.provider === "google" || account.provider === "facebook") {
+    if (account.provider === "github" || account.provider === "google" || account.provider === "facebook" || account.provider === "Twitter") {
         await connectDB();
 
         const targetEmail =
