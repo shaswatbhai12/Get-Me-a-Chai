@@ -40,7 +40,7 @@ export const authoptions = {
 
         const targetEmail =
             user.email ||
-            profile.email ||
+            profile?.email ||
             `${user.name || "user"}@${account.provider}.private`;
 
         const currentUser = await User.findOne({
