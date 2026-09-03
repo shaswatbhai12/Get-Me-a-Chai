@@ -65,7 +65,7 @@ const Dashboard = () => {
         Welcome to your Dashboard
       </h1>
 
-      <form className="max-w-2xl mx-auto" action={handleSubmit}>
+      <form className="max-w-2xl mx-auto text-black" action={handleSubmit}>
         <div className="my-2">
           <label
             htmlFor="name"
