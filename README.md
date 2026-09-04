@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# A croud funding and creater-support for developer, creaters to get suppport from their fans
 
-## Getting Started
+## Features
+ -**Creators Profile** - Dedicted Profile form to choose their avatar, name, email, profile and etc.
 
-First, run the development server:
+ -**Custom Amount** - I allowed user to fill a custom amount
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ -**Top-10 Supporters** - Public Leaderboard for Top-10 Contributors
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ -**User Authentication** - User Authentication with Clerk
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Tech Stacks
+ -**Frontend** - Next.js, Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+ -**Backend** - Node.JS
 
-## Learn More
+ -**Authentication** - Clerk
 
-To learn more about Next.js, take a look at the following resources:
+ -**Payment** - RazorPay
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## What I Learnt 
+ I learnt how to make Payment using RazorPay
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Most Challenging Part
+ The major problem I faced when the Payment Page is throwing error repetedly
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How to Run It & Live Demo
+ Live Link: [Chat](https://get-me-a-chai-beryl.vercel.app/)
+ Github: [Clone](https://github.com/shaswatbhai12/Get-Me-a-Chai)
